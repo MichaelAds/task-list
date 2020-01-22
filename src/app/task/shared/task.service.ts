@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { TaskModel } from './task.model';
@@ -9,6 +9,8 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TaskService {
+
+  static emmiterTask = new EventEmitter();
 
   private apiPath: string = 'api/task';
 
@@ -27,6 +29,8 @@ export class TaskService {
       map(this.jsonDataToTask)
     )
   }
+
+
 
   private jsonDataToTasks(jsonData: any[]): TaskModel[] {
     const tasks: TaskModel[] = [];

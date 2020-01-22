@@ -1,0 +1,10 @@
+.formInputTask {
+    display: flex;
+    justify-content: space-around;
+    .formInputTask__input{
+        width: 30%;
+    }
+    button {
+        height: 50px;
+    }
+}

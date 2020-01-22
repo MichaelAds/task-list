@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InMemoryDatabase } from './in-memory-database';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MaterialModule } from './task/shared/material.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,11 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDatabase, { dataEncapsulation: false }
-    )  
+    ),
+    BrowserAnimationsModule  ,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule
   ],
   providers: [ InMemoryDatabase ],
   bootstrap: [AppComponent]
