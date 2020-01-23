@@ -19,7 +19,7 @@ import { MaterialModule } from './task/shared/material.module';
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDatabase, { dataEncapsulation: false }
+      InMemoryDatabase, 
     ),
     BrowserAnimationsModule  ,
     FormsModule,

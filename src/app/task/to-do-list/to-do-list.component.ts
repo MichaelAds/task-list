@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { TaskService } from '../shared/task.service';
 import { TaskModel } from '../shared/task.model';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -36,6 +37,25 @@ export class ToDoListComponent implements OnChanges {
         this.todo.push(res)
       }
     )
+    TaskService.getUpdateEmmiterTask.subscribe(data => {
+      this.taskService.getAll()
+        .subscribe(resp => {
+          this.todo = resp
+        })
+    }
+    )
+  }
+
+  updateTask(item, value) {
+    this.taskService.getById(value.id)
+    .subscribe(resp => {
+      TaskService.updateEmmiterTask.emit(resp);
+    })
+  }
+
+  deleteTask(item, value) {
+    this.taskService.deleteTask(value.id)
+    .subscribe(res => console.log(res))
   }
 
   drop(event: CdkDragDrop<TaskModel[]>) {

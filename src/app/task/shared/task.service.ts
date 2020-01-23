@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { TaskModel } from './task.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TaskModule } from '../task.module';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,10 @@ import { map } from 'rxjs/operators';
 export class TaskService {
 
   static emmiterTask = new EventEmitter();
+  static updateEmmiterTask = new EventEmitter();
+  static getUpdateEmmiterTask = new EventEmitter();
 
-  private apiPath: string = 'api/task';
+  private apiPath: string = 'http://localhost:4200/api/task';
 
   constructor( public http: HttpClient ) { }
 
@@ -23,6 +26,15 @@ export class TaskService {
     )
   }
 
+  getById(id): Observable<TaskModule> {
+    const url = `${this.apiPath}/${id}`
+
+    return this.http.get(url)
+    .pipe(
+      map(this.jsonDataToTask)
+      )
+  }
+
   storeTask(task: {}): Observable<TaskModel> {
     return this.http.post(this.apiPath, task)
     .pipe(
@@ -30,7 +42,22 @@ export class TaskService {
     )
   }
 
+  updateTask(task: TaskModel): Observable<TaskModel> {
+    const url = `${this.apiPath}/${task.id}`;
+    return this.http.put(url, task)
+    .pipe(
+      map(() => task)
+    )
+  }
 
+  
+  deleteTask(id): Observable<any> {
+    const url = `${this.apiPath}/${id}`
+    return this.http.delete(url)
+    .pipe(
+      map(()=> null)
+    )
+  }
 
   private jsonDataToTasks(jsonData: any[]): TaskModel[] {
     const tasks: TaskModel[] = [];
