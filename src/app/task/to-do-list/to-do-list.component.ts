@@ -55,7 +55,7 @@ export class ToDoListComponent implements OnChanges {
 
   deleteTask(item, value) {
     this.taskService.deleteTask(value.id)
-    .subscribe(res => console.log(res))
+    .subscribe(res => this.taskService.getAll().subscribe(resp => this.todo = resp))
   }
 
   drop(event: CdkDragDrop<TaskModel[]>) {
