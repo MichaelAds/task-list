@@ -4,6 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -13,13 +14,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    DragDropModule
+    DragDropModule,
+    MatToolbarModule
   ],
   exports: [
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    DragDropModule
+    DragDropModule,
+    MatToolbarModule
   ]
 })
 export class MaterialModule { }
