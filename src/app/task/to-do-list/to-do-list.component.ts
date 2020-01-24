@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag} from '@angular/cdk/drag-drop';
 import { TaskService } from '../shared/task.service';
 import { TaskModel } from '../shared/task.model';
 import { ThrowStmt } from '@angular/compiler';
@@ -11,6 +11,7 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./to-do-list.component.scss']
 })
 export class ToDoListComponent implements OnChanges {
+  
   ngOnChanges(): void {
     this.taskService.getAll()
     .subscribe(resp => {
@@ -40,10 +41,9 @@ export class ToDoListComponent implements OnChanges {
     TaskService.getUpdateEmmiterTask.subscribe(data => {
       this.taskService.getAll()
         .subscribe(resp => {
-          this.todo = resp;
+          this.todo = resp; 
           this.sortList();
-
-          
+          console.log(this.todo)
         })
     }
     )
@@ -58,15 +58,17 @@ export class ToDoListComponent implements OnChanges {
 
   sortList() {
     this.todo.forEach((obj_todo, key_todo) => {
+      console.log(key_todo)
       this.doing.forEach((obj_doing, key__doing) =>{ 
         if (obj_todo.id === obj_doing.id){
-          this.todo.splice(key_todo)
+          this.todo.splice(key_todo, obj_todo.id)
+          console.log(this.todo)
         }
       });
 
       this.done.forEach((obj_done, key__done) =>{ 
         if (obj_todo.id === obj_done.id){
-          this.todo.splice(key_todo)
+          this.todo.splice(key_todo, obj_todo.id)
         }
       });
       
@@ -84,6 +86,7 @@ export class ToDoListComponent implements OnChanges {
   drop(event: CdkDragDrop<TaskModel[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
     } else {
       transferArrayItem(event.previousContainer.data,
                         event.container.data,

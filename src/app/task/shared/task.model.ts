@@ -1,6 +1,6 @@
 export class TaskModel {
     constructor(
-        public id ?: string,
+        public id ?: number,
         public title ?: string,
         public description ?: string
     ) {}
