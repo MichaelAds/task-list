@@ -1,0 +1,12 @@
+<form [formGroup]="taskForm" #form="ngForm" (submit)="ngSubmit(form)" class="formInputTask">
+    <mat-form-field class="formInputTask__input">
+        <input matInput formControlName="title" placeholder="Titulo">
+    </mat-form-field>
+
+    <mat-form-field class="formInputTask__input">
+        <input matInput formControlName="description" placeholder="Descrição">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" *ngIf="!editValid">Criar</button>
+    <button mat-raised-button color="primary" type="submit" *ngIf="editValid">Editar</button>
+</form>
