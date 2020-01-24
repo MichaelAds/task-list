@@ -31,8 +31,6 @@
             <div class="example-box" *ngFor="let item of doing" cdkDrag>
                 <strong>{{item.title}}</strong>
                 <p>{{item.description}}</p>
-                <span class="editDragDrop" (click)="updateTask($event, item)">Editar</span>
-                <span class="deleteDragDrop" (click)="deleteTask($event, item)">Deletar</span>
             </div>
         </div>
     </div>
@@ -50,8 +48,6 @@
             <div class="example-box" *ngFor="let item of done" cdkDrag>
                 <strong>{{item.title}}</strong>
                 <p>{{item.description}}</p>
-                <span class="editDragDrop" (click)="updateTask($event, item)">Editar</span>
-                <span class="deleteDragDrop" (click)="deleteTask($event, item)">Deletar</span>
             </div>
         </div>
     </div>

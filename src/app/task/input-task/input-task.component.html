@@ -1,10 +1,5 @@
 <form [formGroup]="taskForm" #form="ngForm" (submit)="ngSubmit(form)" class="formInputTask">
     <mat-form-field class="formInputTask__input">
-        <input matInput formControlName="id" placeholder="ID">
-        <mat-error *ngIf="taskForm.controls.id.hasError('invalid')">{{textError}}</mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="formInputTask__input">
         <input matInput formControlName="title" placeholder="Titulo">
     </mat-form-field>
 

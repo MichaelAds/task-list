@@ -18,7 +18,7 @@ export class InputTaskComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private taskService: TaskService) {
     this.taskForm = fb.group({
-      id: [ '', [Validators.required] ],
+      id: [Math.random().toFixed(3), Validators.required],
       title: [ '', Validators.required ],
       description: ['', Validators.required]
     })
@@ -56,24 +56,23 @@ export class InputTaskComponent implements OnInit {
     }
     
     if(this.editValid) {
-      console.log(createBody)
       this.taskService.updateTask(createBody)
       .subscribe(res => {
-        console.log(res)
         TaskService.getUpdateEmmiterTask.emit(res)
       })
-      this.taskService.getAll().subscribe(res => console.log(res))
+      this.taskService.getAll().subscribe(res => {
+        this.editValid = false
+        this.taskForm.controls['id'].setValue(Math.random().toFixed(3));
+      })
     } else {
-      console.log('passo aqui')
-      
-      
-      if (this.validId) {
-        this.taskService.storeTask(createBody).subscribe(e => TaskService.emmiterTask.emit(e))
-        form.form.markAsPristine();
-        form.resetForm();
+        this.taskService.storeTask(createBody).subscribe(e => {
+          TaskService.emmiterTask.emit(e)
+          this.taskForm.controls['id'].setValue(Math.random().toFixed(3));
+        })
       }
-    }
-
+      
+    form.form.markAsPristine();
+    form.resetForm();
 
   }
 

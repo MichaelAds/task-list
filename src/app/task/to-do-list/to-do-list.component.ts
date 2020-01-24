@@ -18,11 +18,11 @@ export class ToDoListComponent implements OnChanges {
     })
   }
   
-  todo: TaskModel[];
+  public todo: TaskModel[];
 
-  doing = [];
+  public doing: TaskModel[] = [];
 
-  done = [];
+  public done: TaskModel[] = [];
 
   constructor(private taskService: TaskService) { 
     this.taskService.getAll()
@@ -40,7 +40,10 @@ export class ToDoListComponent implements OnChanges {
     TaskService.getUpdateEmmiterTask.subscribe(data => {
       this.taskService.getAll()
         .subscribe(resp => {
-          this.todo = resp
+          this.todo = resp;
+          this.sortList();
+
+          
         })
     }
     )
@@ -53,9 +56,29 @@ export class ToDoListComponent implements OnChanges {
     })
   }
 
+  sortList() {
+    this.todo.forEach((obj_todo, key_todo) => {
+      this.doing.forEach((obj_doing, key__doing) =>{ 
+        if (obj_todo.id === obj_doing.id){
+          this.todo.splice(key_todo)
+        }
+      });
+
+      this.done.forEach((obj_done, key__done) =>{ 
+        if (obj_todo.id === obj_done.id){
+          this.todo.splice(key_todo)
+        }
+      });
+      
+    })
+  }
+
   deleteTask(item, value) {
     this.taskService.deleteTask(value.id)
-    .subscribe(res => this.taskService.getAll().subscribe(resp => this.todo = resp))
+    .subscribe(res => this.taskService.getAll().subscribe(resp => {
+      this.todo = resp
+      this.sortList();
+    }))
   }
 
   drop(event: CdkDragDrop<TaskModel[]>) {
