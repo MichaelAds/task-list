@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { TaskService } from '../shared/task.service';
 import { TaskModel } from '../shared/task.model';
-import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-input-task',
@@ -12,7 +11,6 @@ import { debounceTime } from 'rxjs/operators';
 export class InputTaskComponent implements OnInit {
   public taskForm: FormGroup;
   public textError: string;
-  public validId: boolean = false;
   public editValid: boolean = false;
   public valueUpdate: TaskModel;
 
@@ -23,16 +21,6 @@ export class InputTaskComponent implements OnInit {
       description: ['', Validators.required]
     })
 
-    // this.taskForm.valueChanges
-    // .pipe(debounceTime(1500))
-    // .subscribe(res => {
-    //   this.taskService.getById(res.id)
-    //   .subscribe(e => {
-    //     this.taskForm.controls.id.setErrors({invalid: true});
-    //     this.textError = 'id ja existe';
-    //     this.validId = false;
-    //   }, err => this.validId = true)
-    // })
    }
 
   ngOnInit() {
@@ -41,9 +29,7 @@ export class InputTaskComponent implements OnInit {
       this.taskForm.controls['title'].setValue(res.title);
       this.taskForm.controls['description'].setValue(res.description);
       
-      this.valueUpdate = res;
       this.editValid = true;
-      this.validId = true;
     })
   }
 
