@@ -25,6 +25,8 @@ export class ToDoListComponent implements OnChanges {
 
   public done: TaskModel[] = [];
 
+  public listTask: TaskModel[] = [];
+
   constructor(private taskService: TaskService) { 
     this.taskService.getAll()
     .subscribe(resp => {
@@ -39,12 +41,25 @@ export class ToDoListComponent implements OnChanges {
       }
     )
     TaskService.getUpdateEmmiterTask.subscribe(data => {
-      this.taskService.getAll()
-        .subscribe(resp => {
-          this.todo = resp; 
-          this.sortList();
+      console.log(data)
+      this.todo.forEach((o,i) => {
+        if(o.id === data.id) {
+
+          this.todo[i].title = data.title
+          this.todo[i].description = data.description
+
           console.log(this.todo)
-        })
+        }
+      })
+
+      // this.taskService.getAll()
+      //   .subscribe(resp => {
+      //     this.listTask = resp;
+      //     this.sortList();
+          
+      //   })
+      //   this.todo = this.listTask; 
+        console.log(this.todo)
     }
     )
   }
@@ -57,18 +72,18 @@ export class ToDoListComponent implements OnChanges {
   }
 
   sortList() {
-    this.todo.forEach((obj_todo, key_todo) => {
-      console.log(key_todo)
+    this.listTask.forEach((obj_listTask, key_listTask) => {
+      console.log(key_listTask)
       this.doing.forEach((obj_doing, key__doing) =>{ 
-        if (obj_todo.id === obj_doing.id){
-          this.todo.splice(key_todo, obj_todo.id)
-          console.log(this.todo)
+        if (obj_listTask.id === obj_doing.id){
+          this.listTask.splice(key_listTask, obj_listTask.id)
+          console.log(this.listTask)
         }
       });
 
       this.done.forEach((obj_done, key__done) =>{ 
-        if (obj_todo.id === obj_done.id){
-          this.todo.splice(key_todo, obj_todo.id)
+        if (obj_listTask.id === obj_done.id){
+          this.listTask.splice(key_listTask, obj_listTask.id)
         }
       });
       
